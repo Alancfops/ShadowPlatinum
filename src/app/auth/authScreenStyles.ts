@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from "../../theme";
+import { colors } from "../../../theme";
 
 export const authScreenStyles = StyleSheet.create({
   container: {
@@ -51,6 +51,34 @@ export const authScreenStyles = StyleSheet.create({
     fontSize: 16,
     color: colors.text,
     marginBottom: 20,
+  },
+  inputWithIcon: {
+    paddingRight: 48,
+  },
+  eyeIcon: {
+    position: "absolute",
+    right: 14,
+    top: 14,
+    padding: 4,
+  },
+  inputRow: {
+    position: "relative",
+    marginBottom: 20,
+  },
+  errorText: {
+    fontSize: 12,
+    color: "#E57373",
+    marginTop: -16,
+    marginBottom: 12,
+  },
+  successText: {
+    fontSize: 14,
+    color: "#81C784",
+    marginBottom: 12,
+    textAlign: "center",
+  },
+  buttonDisabled: {
+    opacity: 0.6,
   },
   button: {
     backgroundColor: colors.gold,
