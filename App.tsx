@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Login } from "./src/app/auth/Login";
-import { SignUp } from "./src/app/auth/SignUp";
+import Login from "./src/app/(auth)/login";
+import SignUp from "./src/app/(auth)/signup";
 
 type Screen = "login" | "signup";
 
