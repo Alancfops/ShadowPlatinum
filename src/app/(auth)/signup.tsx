@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
-  ActivityIndicator,
-} from "react-native";
+import { Text } from "react-native";
 import { router } from "expo-router";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Ionicons } from "@expo/vector-icons";
-import { colors } from "../../../theme";
+import {
+  AuthHeader,
+  Button,
+  Card,
+  Input,
+  KeyboardAwareScroll,
+  LinkButton,
+  PasswordInput,
+} from "../../components";
 import { authScreenStyles as styles } from "./authScreenStyles";
 
 const signUpSchema = Yup.object().shape({
@@ -28,10 +26,9 @@ const signUpSchema = Yup.object().shape({
 });
 
 const MOCK_EMAIL = "sekiro@gmail.com";
-const MOCK_SENHA = "123456";
+const MOCK_SENHA = "Al123456";
 
 export default function SignUpScreen() {
-  const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [signUpError, setSignUpError] = useState("");
@@ -55,139 +52,90 @@ export default function SignUpScreen() {
       setIsSubmitting(false);
       setTimeout(() => router.replace("/(tabs)"), 2000);
     } else {
-      setSignUpError("Use os dados de teste para criar a conta");
+      setSignUpError("Email ou senha inválidos.");
       setIsSubmitting(false);
     }
   };
 
   return (
-    <KeyboardAvoidingView
+    <KeyboardAwareScroll
       style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      contentContainerStyle={styles.scrollContent}
     >
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.header}>
-          <Text style={styles.title}>Shadow Platinum</Text>
-          <Text style={styles.subtitle}>Seu Guia Shinobi</Text>
-        </View>
-        <View style={styles.card}>
-          <Formik
-            initialValues={{ nome: "", email: "", senha: "" }}
-            validationSchema={signUpSchema}
-            onSubmit={handleSubmit}
-          >
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit: formikSubmit,
-              values,
-              errors,
-              touched,
-            }) => (
-              <>
-                <Text style={styles.label}>Nome de usuário</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Seu nome"
-                  placeholderTextColor={colors.placeholder}
-                  value={values.nome}
-                  onChangeText={handleChange("nome")}
-                  onBlur={handleBlur("nome")}
-                  autoCapitalize="words"
-                  editable={!isSubmitting}
-                />
-                {touched.nome && errors.nome && (
-                  <Text style={styles.errorText}>{errors.nome}</Text>
-                )}
+      <AuthHeader />
+      <Card maxWidth={300}>
+        <Formik
+          initialValues={{ nome: "", email: "", senha: "" }}
+          validationSchema={signUpSchema}
+          onSubmit={handleSubmit}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit: formikSubmit,
+            values,
+            errors,
+            touched,
+          }) => (
+            <>
+              <Input
+                label="Nome de usuário"
+                placeholder="Seu nome"
+                value={values.nome}
+                onChangeText={handleChange("nome")}
+                onBlur={handleBlur("nome")}
+                autoCapitalize="words"
+                editable={!isSubmitting}
+                error={errors.nome}
+                touched={touched.nome}
+              />
+              <Input
+                label="Email"
+                placeholder="shinobi@gmail.com"
+                value={values.email}
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+                editable={!isSubmitting}
+                error={errors.email}
+                touched={touched.email}
+              />
+              <PasswordInput
+                label="Senha (apenas letras e números)"
+                placeholder="********"
+                value={values.senha}
+                onChangeText={handleChange("senha")}
+                onBlur={handleBlur("senha")}
+                editable={!isSubmitting}
+                error={errors.senha}
+                touched={touched.senha}
+              />
 
-                <Text style={styles.label}>Email</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="shinobi@gmail.com"
-                  placeholderTextColor={colors.placeholder}
-                  value={values.email}
-                  onChangeText={handleChange("email")}
-                  onBlur={handleBlur("email")}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  editable={!isSubmitting}
-                />
-                {touched.email && errors.email && (
-                  <Text style={styles.errorText}>{errors.email}</Text>
-                )}
+              {showSuccess && (
+                <Text style={styles.successText}>Cadastrado com sucesso!</Text>
+              )}
+              {signUpError ? (
+                <Text style={styles.errorText}>{signUpError}</Text>
+              ) : null}
 
-                <Text style={styles.label}>
-                  Senha (apenas letras e números)
-                </Text>
-                <View style={styles.inputRow}>
-                  <TextInput
-                    style={[styles.input, styles.inputWithIcon]}
-                    placeholder="********"
-                    placeholderTextColor={colors.placeholder}
-                    value={values.senha}
-                    onChangeText={handleChange("senha")}
-                    onBlur={handleBlur("senha")}
-                    secureTextEntry={!showPassword}
-                    editable={!isSubmitting}
-                  />
-                  <TouchableOpacity
-                    style={styles.eyeIcon}
-                    onPress={() => setShowPassword(!showPassword)}
-                    hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
-                    disabled={isSubmitting}
-                  >
-                    <Ionicons
-                      name={showPassword ? "eye-off" : "eye"}
-                      size={22}
-                      color={colors.placeholder}
-                    />
-                  </TouchableOpacity>
-                </View>
-                {touched.senha && errors.senha && (
-                  <Text style={styles.errorText}>{errors.senha}</Text>
-                )}
-
-                {showSuccess && (
-                  <Text style={styles.successText}>
-                    Cadastrado com sucesso!
-                  </Text>
-                )}
-
-                {signUpError ? (
-                  <Text style={styles.errorText}>{signUpError}</Text>
-                ) : null}
-
-                <TouchableOpacity
-                  style={[styles.button, isSubmitting && styles.buttonDisabled]}
-                  activeOpacity={0.8}
-                  onPress={() => formikSubmit()}
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? (
-                    <ActivityIndicator color="#1A1A1A" size="small" />
-                  ) : (
-                    <Text style={styles.buttonText}>CRIAR CONTA</Text>
-                  )}
-                </TouchableOpacity>
-              </>
-            )}
-          </Formik>
-          <TouchableOpacity
-            style={styles.linkWrap}
-            onPress={() => router.back()}
-            disabled={isSubmitting}
-          >
-            <Text style={styles.linkText}>
-              Já tem conta? <Text style={styles.linkHighlight}>Entrar</Text>
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+              <Button
+                title="CRIAR CONTA"
+                onPress={() => formikSubmit()}
+                loading={isSubmitting}
+                disabled={isSubmitting}
+              />
+            </>
+          )}
+        </Formik>
+        <LinkButton
+          text="Já tem conta?"
+          highlight="Entrar"
+          onPress={() => router.back()}
+          disabled={isSubmitting}
+        />
+      </Card>
+    </KeyboardAwareScroll>
   );
 }

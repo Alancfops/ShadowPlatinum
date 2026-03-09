@@ -5,7 +5,7 @@ export default function TrofeusScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Troféus</Text>
-      <Text style={styles.subtitle}>Em breve</Text>
+      <Text style={styles.subtitle}>Ainda vai ter</Text>
     </View>
   );
 }
