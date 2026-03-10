@@ -25,7 +25,7 @@ const signUpSchema = Yup.object().shape({
     .required("Senha é obrigatória"),
 });
 
-const MOCK_EMAIL = "sekiro@gmail.com";
+const MOCK_EMAIL = "shinobi@gmail.com";
 const MOCK_SENHA = "Al123456";
 
 export default function SignUpScreen() {
@@ -50,7 +50,7 @@ export default function SignUpScreen() {
     ) {
       setShowSuccess(true);
       setIsSubmitting(false);
-      setTimeout(() => router.replace("/(tabs)"), 2000);
+      setTimeout(() => router.replace("/(auth)/login"), 2000);
     } else {
       setSignUpError("Email ou senha inválidos.");
       setIsSubmitting(false);

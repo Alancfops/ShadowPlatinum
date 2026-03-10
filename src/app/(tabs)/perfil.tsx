@@ -4,22 +4,16 @@ import { colors } from "../../../theme";
 
 const MOCK_USER = {
   nome: "Shinobi",
-  email: "shinobi@ashina.jp",
+  email: "shinobi@gamil..com",
   inicial: "S",
 };
 
 export default function PerfilScreen() {
-  const handleAlterarFoto = () => {
-    // TODO: abrir seletor de imagem
-  };
+  const handleAlterarFoto = () => {};
 
-  const handleAlterarSenha = () => {
-    // TODO: navegar para alterar senha
-  };
+  const handleAlterarSenha = () => {};
 
-  const handleDeletarConta = () => {
-    // TODO: confirmar e deletar conta
-  };
+  const handleDeletarConta = () => {};
 
   return (
     <ScrollView

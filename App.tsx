@@ -1,13 +1,7 @@
 import React from "react";
-import { StatusBar } from "expo-status-bar";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Login from "./src/app/(auth)/login";
 
+// Com "main": "expo-router/entry" no package.json, o app inicia pelo Expo Router (src/app).
+// Este arquivo não é usado como entrada; pode ser removido ou mantido como fallback.
 export default function App() {
-  return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#1A1A1A" }}>
-      <StatusBar style="light" />
-      <Login />
-    </SafeAreaView>
-  );
+  return null;
 }

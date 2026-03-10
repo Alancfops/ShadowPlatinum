@@ -1,10 +1,6 @@
 import { useMemo, useState } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
-import {
-  CategoryCard,
-  PageHeader,
-  ProgressBar,
-} from "../../components";
+import { CategoryCard, PageHeader, ProgressBar } from "../../components";
 import type { CategoryIcon } from "../../components";
 import { colors } from "../../../theme";
 
@@ -19,10 +15,34 @@ interface CategoriaMock {
 }
 
 const MOCK_CATEGORIAS: CategoriaMock[] = [
-  { key: "proteses", titulo: "PRÓTESES", atual: 0, total: 10, icon: "construct-outline" },
-  { key: "chefes", titulo: "CHEFES", atual: 0, total: 14, icon: "skull-outline" },
-  { key: "itens", titulo: "ITENS", atual: 0, total: 25, icon: "flower-outline" },
-  { key: "trofeus", titulo: "TROFÉUS", atual: 0, total: 16, icon: "trophy-outline" },
+  {
+    key: "proteses",
+    titulo: "PRÓTESES",
+    atual: 5,
+    total: 10,
+    icon: "construct-outline",
+  },
+  {
+    key: "chefes",
+    titulo: "CHEFES",
+    atual: 2,
+    total: 14,
+    icon: "skull-outline",
+  },
+  {
+    key: "itens",
+    titulo: "ITENS",
+    atual: 0,
+    total: 25,
+    icon: "flower-outline",
+  },
+  {
+    key: "trofeus",
+    titulo: "TROFÉUS",
+    atual: 0,
+    total: 16,
+    icon: "trophy-outline",
+  },
 ];
 
 function calcularPercentual(atual: number, total: number): number {
@@ -40,11 +60,11 @@ export default function HomeScreen() {
       progresso: `${cat.atual}/${cat.total}`,
     }));
     const somaPercentuais = categoriasComPercentual.reduce(
-      (acc, c) => acc + c.percentual,
-      0,
+      (acc, item) => acc + item.percentual,
+      0
     );
     const percentualPlatina = Math.round(
-      somaPercentuais / categoriasComPercentual.length,
+      somaPercentuais / categoriasComPercentual.length
     );
     return { categoriasComPercentual, percentualPlatina };
   }, [dados]);
