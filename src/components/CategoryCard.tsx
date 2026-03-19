@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../../theme";
 import { ProgressBar } from "./ProgressBar";
@@ -15,6 +15,7 @@ interface CategoryCardProps {
   progress: string;
   percent: number;
   icon: CategoryIcon;
+  onPress?: () => void;
 }
 
 export function CategoryCard({
@@ -22,9 +23,10 @@ export function CategoryCard({
   progress,
   percent,
   icon,
+  onPress,
 }: CategoryCardProps) {
-  return (
-    <View style={styles.card}>
+  const content = (
+    <>
       <Ionicons name={icon} size={28} color={colors.gold} style={styles.icon} />
       <Text style={styles.title}>{title}</Text>
       <View style={styles.content}>
@@ -32,6 +34,20 @@ export function CategoryCard({
         <Text style={styles.percent}>{percent}%</Text>
         <ProgressBar percent={percent} size="small" />
       </View>
+    </>
+  );
+
+  if (onPress) {
+    return (
+      <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
+        {content}
+      </TouchableOpacity>
+    );
+  }
+
+  return (
+    <View style={styles.card}>
+      {content}
     </View>
   );
 }

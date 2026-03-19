@@ -1,11 +1,6 @@
 import { StyleSheet } from "react-native";
 import { colors } from "../../../theme";
 
-/**
- * Estilos usados nas telas de auth (login/signup):
- * - layout do container e do scroll
- * - mensagens de erro e sucesso
- */
 export const authScreenStyles = StyleSheet.create({
   container: {
     flex: 1,

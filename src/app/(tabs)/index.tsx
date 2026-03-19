@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
+import { useRouter } from "expo-router";
 import { CategoryCard, PageHeader, ProgressBar } from "../../components";
 import type { CategoryIcon } from "../../components";
 import { colors } from "../../../theme";
+import { BOSSES_INICIAIS, getBossesProgress } from "../../data/bosses";
 
 type CategoriaKey = "proteses" | "chefes" | "itens" | "trofeus";
 
@@ -51,10 +53,17 @@ function calcularPercentual(atual: number, total: number): number {
 }
 
 export default function HomeScreen() {
+  const router = useRouter();
   const [dados] = useState(MOCK_CATEGORIAS);
 
   const { categoriasComPercentual, percentualPlatina } = useMemo(() => {
+    const progressoChefes = getBossesProgress(BOSSES_INICIAIS);
+
     const categoriasComPercentual = dados.map((cat) => ({
+      ...cat,
+      atual: cat.key === "chefes" ? progressoChefes.derrotados : cat.atual,
+      total: cat.key === "chefes" ? progressoChefes.total : cat.total,
+    })).map((cat) => ({
       ...cat,
       percentual: calcularPercentual(cat.atual, cat.total),
       progresso: `${cat.atual}/${cat.total}`,
@@ -93,6 +102,11 @@ export default function HomeScreen() {
             progress={cat.progresso}
             percent={cat.percentual}
             icon={cat.icon}
+            onPress={
+              cat.key === "chefes"
+                ? () => router.push("/(tabs)/chefes")
+                : undefined
+            }
           />
         ))}
       </View>

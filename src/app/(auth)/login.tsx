@@ -12,7 +12,7 @@ import {
   LinkButton,
   PasswordInput,
 } from "../../components";
-import { authScreenStyles as styles } from "./authScreenStyles";
+import { authScreenStyles as styles } from "./_authScreenStyles";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email("Email inválido").required("Email é obrigatório"),

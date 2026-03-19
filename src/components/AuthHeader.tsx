@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { colors } from "../../theme";
 
 interface AuthHeaderProps {
@@ -13,6 +13,11 @@ export function AuthHeader({
 }: AuthHeaderProps) {
   return (
     <View style={styles.header}>
+      <Image
+        source={require("../assets/logo1.png")}
+        style={styles.logo}
+        resizeMode="contain"
+      />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>{subtitle}</Text>
     </View>
@@ -24,11 +29,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 32,
   },
+  logo: {
+    width: 120,
+    height: 120,
+    borderRadius: 25,
+    overflow: "hidden",
+  },
   title: {
     fontSize: 28,
     fontWeight: "700",
     color: colors.gold,
-    marginTop: 16,
+    marginTop: 10,
     letterSpacing: 1,
   },
   subtitle: {

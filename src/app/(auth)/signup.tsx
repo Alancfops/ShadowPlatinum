@@ -12,7 +12,7 @@ import {
   LinkButton,
   PasswordInput,
 } from "../../components";
-import { authScreenStyles as styles } from "./authScreenStyles";
+import { authScreenStyles as styles } from "./_authScreenStyles";
 
 const signUpSchema = Yup.object().shape({
   nome: Yup.string()
